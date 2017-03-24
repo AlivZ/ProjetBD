@@ -1,0 +1,3 @@
+hdw_main_homepage:
+    path:     /
+    defaults: { _controller: HDWMainBundle:Main:index }
