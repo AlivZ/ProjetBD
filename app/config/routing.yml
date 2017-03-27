@@ -1,2 +1,10 @@
+hdw_mongo_db:
+    resource: "@HDWMongoDBBundle/Resources/config/routing.yml"
+    prefix:   /mongo
+
+hdw_my_sql:
+    resource: "@HDWMySQLBundle/Resources/config/routing.yml"
+    prefix:   /sql
+
 hdw_main:
     resource: "@HDWMainBundle/Resources/config/routing.yml"

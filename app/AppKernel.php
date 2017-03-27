@@ -16,6 +16,8 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new HDW\MainBundle\HDWMainBundle(),
+            new HDW\MySQLBundle\HDWMySQLBundle(),
+            new HDW\MongoDBBundle\HDWMongoDBBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

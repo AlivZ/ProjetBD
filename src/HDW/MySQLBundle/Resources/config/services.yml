@@ -1,0 +1,4 @@
+services:
+#    hdw_my_sql.example:
+#        class: HDW\MySQLBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]

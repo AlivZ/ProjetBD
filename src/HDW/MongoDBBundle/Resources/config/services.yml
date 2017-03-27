@@ -1,0 +1,4 @@
+services:
+#    hdw_mongo_db.example:
+#        class: HDW\MongoDBBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
