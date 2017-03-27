@@ -1,7 +1,3 @@
 hdw_my_sql_homepage:
     path:     /
     defaults: { _controller: HDWMySQLBundle:Default:index }
-
-hdw_my_sql_add:
-    path:     /add
-    defaults: { _controller: HDWMySQLBundle:Default:add }

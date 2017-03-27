@@ -1,3 +1,7 @@
 hdw_main_homepage:
     path:     /
     defaults: { _controller: HDWMainBundle:Main:index }
+
+hdw_main_insert:
+    path:     /insert
+    defaults: { _controller: HDWMainBundle:Main:insert }
