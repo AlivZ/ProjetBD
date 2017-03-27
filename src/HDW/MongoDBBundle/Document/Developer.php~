@@ -1,0 +1,47 @@
+<?php
+
+namespace HDW\MongoDBBundle\Document;
+
+use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+
+/**
+* @MongoDB\Document
+*/
+class Developer
+{
+    /**
+    * @MongoDB\Id
+    */
+    protected $id;
+
+    /**
+    * @MongoDB\Field(type="string")
+    */
+    protected $name;
+
+    /**
+    * @MongoDB\Field(type="string")
+    */
+    protected $nickname;
+
+    /**
+    * @MongoDB\Field(type="integer")
+    */
+    protected $age;
+
+    /**
+     * @MongoDB\Field(type="string")
+     */
+    protected $state;
+
+    /**
+     * @MongoDB\Field(type="string")
+     */
+      protected $dbfav;
+
+    /**
+     * @MongoDB\Field(type="date")
+     */
+    protected $startingdate;
+
+}

@@ -1,67 +1,48 @@
 <?php
 
-namespace HDW\MySQLBundle\Entity;
+namespace HDW\MongoDBBundle\Document;
 
-use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
 /**
- * Developer
- *
- * @ORM\Table(name="developer")
- * @ORM\Entity(repositoryClass="HDW\MySQLBundle\Repository\DeveloperRepository")
- */
+* @MongoDB\Document
+*/
 class Developer
 {
     /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
+    * @MongoDB\Id
+    */
+    protected $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=255)
-     */
-    private $name;
+    * @MongoDB\Field(type="string")
+    */
+    protected $name;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="nickname", type="string", length=255)
-     */
-    private $nickname;
+    * @MongoDB\Field(type="string")
+    */
+    protected $nickname;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="age", type="integer")
-     */
-    private $age;
+    * @MongoDB\Field(type="integer")
+    */
+    protected $age;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="state", type="string", length=255)
+     * @MongoDB\Field(type="string")
      */
-    private $state;
+    protected $state;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="dbfav", type="string", length=255)
+     * @MongoDB\Field(type="string")
      */
-    private $dbfav;
+      protected $dbfav;
 
     /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="startingdate", type="date")
+     * @MongoDB\Field(type="date")
      */
-    private $startingdate;
+    protected $startingdate;
 
     public function __construct()
     {
@@ -71,7 +52,7 @@ class Developer
     /**
      * Get id
      *
-     * @return int
+     * @return id $id
      */
     public function getId()
     {
@@ -82,20 +63,18 @@ class Developer
      * Set name
      *
      * @param string $name
-     *
-     * @return Developer
+     * @return $this
      */
     public function setName($name)
     {
         $this->name = $name;
-
         return $this;
     }
 
     /**
      * Get name
      *
-     * @return string
+     * @return string $name
      */
     public function getName()
     {
@@ -106,20 +85,18 @@ class Developer
      * Set nickname
      *
      * @param string $nickname
-     *
-     * @return Developer
+     * @return $this
      */
     public function setNickname($nickname)
     {
         $this->nickname = $nickname;
-
         return $this;
     }
 
     /**
      * Get nickname
      *
-     * @return string
+     * @return string $nickname
      */
     public function getNickname()
     {
@@ -130,20 +107,18 @@ class Developer
      * Set age
      *
      * @param integer $age
-     *
-     * @return Developer
+     * @return $this
      */
     public function setAge($age)
     {
         $this->age = $age;
-
         return $this;
     }
 
     /**
      * Get age
      *
-     * @return int
+     * @return integer $age
      */
     public function getAge()
     {
@@ -154,20 +129,18 @@ class Developer
      * Set state
      *
      * @param string $state
-     *
-     * @return Developer
+     * @return $this
      */
     public function setState($state)
     {
         $this->state = $state;
-
         return $this;
     }
 
     /**
      * Get state
      *
-     * @return string
+     * @return string $state
      */
     public function getState()
     {
@@ -178,20 +151,18 @@ class Developer
      * Set dbfav
      *
      * @param string $dbfav
-     *
-     * @return Developer
+     * @return $this
      */
     public function setDbfav($dbfav)
     {
         $this->dbfav = $dbfav;
-
         return $this;
     }
 
     /**
      * Get dbfav
      *
-     * @return string
+     * @return string $dbfav
      */
     public function getDbfav()
     {
@@ -201,25 +172,22 @@ class Developer
     /**
      * Set startingdate
      *
-     * @param \DateTime $startingdate
-     *
-     * @return Developer
+     * @param date $startingdate
+     * @return $this
      */
     public function setStartingdate($startingdate)
     {
         $this->startingdate = $startingdate;
-
         return $this;
     }
 
     /**
      * Get startingdate
      *
-     * @return \DateTime
+     * @return date $startingdate
      */
     public function getStartingdate()
     {
         return $this->startingdate;
     }
 }
-

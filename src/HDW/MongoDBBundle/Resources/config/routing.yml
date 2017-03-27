@@ -1,3 +1,7 @@
 hdw_mongo_db_homepage:
     path:     /
     defaults: { _controller: HDWMongoDBBundle:Default:index }
+
+hdw_mongo_db_add:
+    path:     /add
+    defaults: { _controller: HDWMongoDBBundle:Default:add }
