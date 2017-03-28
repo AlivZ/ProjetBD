@@ -4,7 +4,7 @@ namespace HDW\MainBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use HDW\MongoDBBundle\Document\Dev;
-use HDW\MySQLBundle\Entity\Developer;
+use HDW\MainBundle\Builder\DevBuilder;
 
 class MainController extends Controller
 {
@@ -15,45 +15,87 @@ class MainController extends Controller
 
     public function insertAction()
     {
-        $timestartmysql=microtime(true);
+        //INSERT MYSQL
+        $timeinsertstartmysql=microtime(true);
         $cptdevv = 0;
-        while ($cptdevv < 1000) {
-            $dev = new Developer();
-            $dev->setName('De Wispelaere');
-            $dev->setNickname('Hugo');
-            $dev->setAge(23);
-            $dev->setState('Stagiaire');
-            $dev->setDbfav('MySQL');
+        while ($cptdevv < 50) {
+
+            $buildermysql = new DevBuilder();
+            $devmysql =  $buildermysql->buildDevMySQL();
 
             $em = $this->getDoctrine()->getManager();
-            $em->persist($dev);
+            $em->persist($devmysql);
             $em->flush();
 
             $cptdevv++;
         }
-        $timeendmysql=microtime(true);
-        $timemysql=$timeendmysql-$timestartmysql;
+        $timeinsertendmysql=microtime(true);
+        $timeinsertmysql=$timeinsertendmysql-$timeinsertstartmysql;
 
+        //SELECT* MYSQL
+        $timeselectstartmysql=microtime(true);
+        $cptdevo = 0;
+        while ($cptdevo < 50) {
+            $repository = $this->getDoctrine()->getManager()->getRepository('HDWMySQLBundle:Developer');
+            $listDevelopers = $repository->findIn2017();
+            $cptdevo++;
+        }
 
-        $timestartmongo=microtime(true);
+        $timeselectendmysql=microtime(true);
+        $timeselectmysql=$timeselectendmysql-$timeselectstartmysql;
+
+        //REMOVE MYSQL
+        $timeremovestartmysql=microtime(true);
+        foreach ($listDevelopers as $devs) {
+            $em->remove($devs);
+            $em->flush();
+        }
+        $timeremoveendmysql=microtime(true);
+        $timeremovemysql=$timeremoveendmysql-$timeremovestartmysql;
+
+        //INSERT MONGO
+        $timestartmongoinsert=microtime(true);
         $cptdev = 0;
-        while ($cptdev < 1000) {
-            $dev = new Dev();
-            $dev->setName('De Wispelaere');
-            $dev->setNickname('Hugo');
-            $dev->setAge(23);
-            $dev->setState('Stagiaire');
-            $dev->setDbfav('MongoDB');
+        while ($cptdev < 50) {
+            $buildermongo = new DevBuilder();
+            $devmongo =  $buildermongo->buildDevMongoDB();
 
             $dm = $this->get('doctrine_mongodb')->getManager();
-            $dm->persist($dev);
+            $dm->persist($devmongo );
             $dm->flush();
 
             $cptdev++;
         }
-        $timeendmongo=microtime(true);
-        $timemongo=$timeendmongo-$timestartmongo;
+        $timeendmongoinsert=microtime(true);
+        $timeinsertmongo=$timeendmongoinsert-$timestartmongoinsert;
 
-        return $this->render('HDWMainBundle:Main:added.html.twig',array('timeinsertmongo' => $timemongo,'timeinsertmysql' => $timemysql));
+        //SELECT* MONGO
+        $timeselectstartmongo=microtime(true);
+        $cptdeva = 0;
+        while ($cptdeva < 50) {
+        $repositoryy = $this->get('doctrine_mongodb')->getManager()->getRepository('HDWMongoDBBundle:Dev');
+        $listDevs = $repositoryy->findIn2017();
+        $cptdeva++;
+        }
+        $timeselectendmongo=microtime(true);
+        $timeselectmongo=$timeselectendmongo-$timeselectstartmongo;
+
+        //REMOVE MONGO
+        $timeremovestartmongo=microtime(true);
+        foreach ($listDevs as $devvs) {
+            $dm->remove($devvs);
+            $dm->flush();
+        }
+        $timeremoveendmongo=microtime(true);
+        $timeremovemongo=$timeremoveendmongo-$timeremovestartmongo;
+
+
+        return $this->render('HDWMainBundle:Main:added.html.twig', array(
+            'timeinsertmysql' => $timeinsertmysql,
+            'timeinsertmongo' => $timeinsertmongo,
+            'timeselectmysql' => $timeselectmysql,
+            'timeselectmongo' => $timeselectmongo,
+            'timeremovemysql' => $timeremovemysql,
+            'timeremovemongo' => $timeremovemongo));
     }
 }

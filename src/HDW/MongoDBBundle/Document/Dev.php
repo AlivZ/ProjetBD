@@ -5,8 +5,8 @@ namespace HDW\MongoDBBundle\Document;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
 /**
-* @MongoDB\Document
-*/
+ * @MongoDB\Document(repositoryClass="HDW\MongoDBBundle\Repository\DevRepository")
+ */
 class Dev
 {
     /**

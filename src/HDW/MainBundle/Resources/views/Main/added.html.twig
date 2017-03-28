@@ -27,11 +27,13 @@
             text: 'Comparaison des Bases de Données'
         },
         subtitle: {
-            text: '1000 Requetes de types INSERT'
+            text: '1000 Requetes de types INSERT - SELECT * - REMOVE'
         },
         xAxis: {
             categories: [
-                'INSERT'
+                'INSERT',
+                'SELECT *',
+                'REMOVE'
             ],
             crosshair: true
         },
@@ -57,11 +59,11 @@
         },
         series: [{
             name: 'MySQL',
-            data: [{{ timeinsertmysql }}]
+            data: [{{ timeinsertmysql }},{{ timeselectmysql }},{{ timeremovemysql }}]
 
         }, {
             name: 'MongoDB',
-            data: [{{ timeinsertmongo }}]
+            data: [{{ timeinsertmongo }},{{ timeselectmongo }},{{ timeremovemongo }}]
 
         },]
     });
