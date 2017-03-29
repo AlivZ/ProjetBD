@@ -5,3 +5,15 @@ hdw_main_homepage:
 hdw_main_insert:
     path:     /insert
     defaults: { _controller: HDWMainBundle:Main:insert }
+
+hdw_main_remove:
+    path:     /remove
+    defaults: { _controller: HDWMainBundle:Main:remove }
+
+hdw_main_select:
+    path:     /select
+    defaults: { _controller: HDWMainBundle:Main:select }
+
+hdw_main_wow:
+    path:     /wow
+    defaults: { _controller: HDWMainBundle:Main:wow }

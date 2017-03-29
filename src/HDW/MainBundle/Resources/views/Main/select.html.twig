@@ -27,13 +27,13 @@
             text: 'Comparaison des Bases de Données'
         },
         subtitle: {
-            text: '900 Requetes de types INSERT - SELECT * FROM Dev WHERE Dev.startingdate BETWEEN 2017-01-01 AND 2017-12-31 - REMOVE'
+            text: '1000 Requetes de types SELECT * FROM Dev - SELECT * FROM Dev WHERE Dev.startingdate BETWEEN 2017-01-01 AND 2017-12-31 - SELECT * FROM Dev WHERE state = "Stagiaire"'
         },
         xAxis: {
             categories: [
-                'INSERT',
-                'SELECT',
-                'REMOVE'
+                'SELECT * FROM Dev',
+                'SELECT * FROM Dev WHERE Dev.startingdate BETWEEN 2017-01-01 AND 2017-12-31',
+                'SELECT * FROM Dev WHERE state = "Stagiaire"'
             ],
             crosshair: true
         },
@@ -59,11 +59,11 @@
         },
         series: [{
             name: 'MySQL',
-            data: [{{ timeinsertmysql }},{{ timeselectmysql }},{{ timeremovemysql }}]
+            data: [{{ timeselectallmysql }},{{ timeselect2017mysql }},{{ timeselectstagemysql }}]
 
         }, {
             name: 'MongoDB',
-            data: [{{ timeinsertmongo }},{{ timeselectmongo }},{{ timeremovemongo }}]
+            data: [{{ timeselectallmongo }},{{ timeselect2017mongo }},{{ timeselectstagemongo }}]
 
         },]
     });

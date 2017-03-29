@@ -11,8 +11,9 @@ namespace HDW\MySQLBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
+use HDW\MainBundle\Repository\I_DeveloperRepository;
 
-class DeveloperRepository extends \Doctrine\ORM\EntityRepository
+class DeveloperRepository extends EntityRepository implements I_DeveloperRepository
 {
     public function findIn2017()
     {
@@ -20,10 +21,7 @@ class DeveloperRepository extends \Doctrine\ORM\EntityRepository
 
         $this->whereCurrentYear($qb);
 
-        return $qb
-            ->getQuery()
-            ->getResult()
-            ;
+        return $qb->getQuery()->getResult();
     }
 
     public function whereCurrentYear(QueryBuilder $qb)
@@ -32,5 +30,13 @@ class DeveloperRepository extends \Doctrine\ORM\EntityRepository
             ->setParameter('start', new \Datetime(date('Y').'-01-01'))
             ->setParameter('end',   new \Datetime(date('Y').'-12-31'))
         ;
+    }
+
+    public function findStagiaire()
+    {
+        $qb = $this->createQueryBuilder('a');
+        $qb->where('a.state = :etat')->setParameter('etat','Stagiaire');
+
+        return $qb->getQuery()->getResult();
     }
 }
