@@ -1,0 +1,80 @@
+<?php
+
+namespace HDW\MongoDBBundle\Document;
+
+use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+
+/**
+ * @MongoDB\Document
+ */
+class address
+{
+    /**
+     * @MongoDB\Id
+     */
+    protected $id;
+
+    /**
+     * @MongoDB\Field(type="string")
+     */
+    protected $namestreet;
+
+    /**
+     * @MongoDB\Field(type="string")
+     */
+    protected $city;
+
+    /**
+     * Set namestreet
+     *
+     * @param string $namestreet
+     * @return $this
+     */
+    public function setNamestreet($namestreet)
+    {
+        $this->namestreet = $namestreet;
+        return $this;
+    }
+
+    /**
+     * Get namestreet
+     *
+     * @return string $namestreet
+     */
+    public function getNamestreet()
+    {
+        return $this->namestreet;
+    }
+
+    /**
+     * Set city
+     *
+     * @param string $city
+     * @return $this
+     */
+    public function setCity($city)
+    {
+        $this->city = $city;
+        return $this;
+    }
+
+    /**
+     * Get city
+     *
+     * @return string $city
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    /**
+     * Get id
+     *
+     * @return id $id
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+}

@@ -1,0 +1,32 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: hugod
+ * Date: 31/03/2017
+ * Time: 11:53
+ */
+
+namespace HDW\MongoDBBundle\Document;
+
+use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+
+/**
+ * @MongoDB\Document
+ */
+class City
+{
+    /**
+     * @MongoDB\Id(strategy="NONE")
+     */
+    protected $id;
+
+    /**
+     * @MongoDB\Field(type="string")
+     */
+    protected $name;
+
+    /**
+     * @MongoDB\Field(type="string")
+     */
+    protected $country;
+}

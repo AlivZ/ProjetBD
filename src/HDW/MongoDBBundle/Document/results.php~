@@ -1,0 +1,39 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: hugod
+ * Date: 31/03/2017
+ * Time: 10:46
+ */
+
+namespace HDW\MongoDBBundle\Document;
+
+use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+
+/**
+ * @MongoDB\Document
+ */
+class results
+{
+    /**
+     * @MongoDB\Id
+     */
+    protected $id;
+
+    /**
+     * @MongoDB\Field(type="string")
+     */
+    protected $nameMatiere;
+
+    /**
+     * @MongoDB\Field(type="int")
+     */
+    protected $note;
+
+    public function __construct($id,$mat,$note)
+    {
+        $this->id = $id;
+        $this->nameMatiere = $mat;
+        $this->note = $note;
+    }
+}

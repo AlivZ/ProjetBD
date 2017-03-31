@@ -4,6 +4,8 @@ namespace HDW\MongoDBBundle\Repository;
 
 use Doctrine\ODM\MongoDB\DocumentRepository;
 use HDW\MainBundle\Repository\I_DeveloperRepository;
+use HDW\MongoDBBundle\Document\Ville;
+use HDW\MongoDBBundle\HDWMongoDBBundle;
 
 /**
  * DevRepository
@@ -28,5 +30,10 @@ class DevRepository extends DocumentRepository implements I_DeveloperRepository
     {
         return $this->createQueryBuilder('Dev')->field('state')->equals('Stagiaire')
             ->getQuery()->execute();
+    }
+
+    public function findDevMontpellier()
+    {
+        return $this->createQueryBuilder('Dev')->field('city.name')->equals('Montpellier')->getQuery()->execute();
     }
 }

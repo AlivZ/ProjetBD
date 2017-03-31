@@ -39,4 +39,11 @@ class DeveloperRepository extends EntityRepository implements I_DeveloperReposit
 
         return $qb->getQuery()->getResult();
     }
+
+    public function findDevMontpellier()
+    {
+        $qb = $this->createQueryBuilder('a')->leftJoin('a.city','city')->addSelect('city');
+        $qb->where('city.name = :nom')->setParameter('nom','Montpellier');
+        return $qb->getQuery()->getResult();
+    }
 }

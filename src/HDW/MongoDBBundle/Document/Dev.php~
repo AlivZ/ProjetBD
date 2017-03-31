@@ -1,0 +1,56 @@
+<?php
+
+namespace HDW\MongoDBBundle\Document;
+
+use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+
+/**
+ * @MongoDB\Document(repositoryClass="HDW\MongoDBBundle\Repository\DevRepository")
+ */
+class Dev
+{
+    /**
+    * @MongoDB\Id(strategy="NONE")
+    */
+    protected $id;
+
+    /**
+    * @MongoDB\Field(type="string")
+    */
+    protected $name;
+
+    /**
+    * @MongoDB\Field(type="string")
+    */
+    protected $nickname;
+
+    /**
+    * @MongoDB\Field(type="integer")
+    */
+    protected $age;
+
+    /**
+     * @MongoDB\Field(type="string")
+     */
+    protected $state;
+
+    /**
+     * @MongoDB\Field(type="string")
+     */
+      protected $dbfav;
+
+    /**
+     * @MongoDB\Field(type="date")
+     */
+    protected $startingdate;
+
+    /**
+     * @MongoDB\EmbedOne(targetDocument="City", strategy="set")
+     */
+    protected $city;
+
+    public function __construct()
+    {
+        $this->startingdate = new \Datetime();
+    }
+}

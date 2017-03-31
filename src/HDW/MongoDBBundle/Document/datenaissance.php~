@@ -1,0 +1,98 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: hugod
+ * Date: 30/03/2017
+ * Time: 18:12
+ */
+
+namespace HDW\MongoDBBundle\Document;
+
+use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+/**
+ * @MongoDB\Document(collection="Etudiant")
+ * @MongoDB\DiscriminatorField("datenaissance")
+ */
+class datenaissance
+{
+    /**
+     * @MongoDB\Field(type="int")
+     */
+    protected $day;
+
+    /**
+     * @MongoDB\Field(type="int")
+     */
+    protected $month;
+
+    /**
+     * @MongoDB\Field(type="int")
+     */
+    protected $year;
+
+    /**
+     * Set day
+     *
+     * @param int $day
+     * @return $this
+     */
+    public function setDay($day)
+    {
+        $this->day = $day;
+        return $this;
+    }
+
+    /**
+     * Get day
+     *
+     * @return int $day
+     */
+    public function getDay()
+    {
+        return $this->day;
+    }
+
+    /**
+     * Set month
+     *
+     * @param int $month
+     * @return $this
+     */
+    public function setMonth($month)
+    {
+        $this->month = $month;
+        return $this;
+    }
+
+    /**
+     * Get month
+     *
+     * @return int $month
+     */
+    public function getMonth()
+    {
+        return $this->month;
+    }
+
+    /**
+     * Set year
+     *
+     * @param int $year
+     * @return $this
+     */
+    public function setYear($year)
+    {
+        $this->year = $year;
+        return $this;
+    }
+
+    /**
+     * Get year
+     *
+     * @return int $year
+     */
+    public function getYear()
+    {
+        return $this->year;
+    }
+}

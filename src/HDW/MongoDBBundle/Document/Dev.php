@@ -44,6 +44,11 @@ class Dev
      */
     protected $startingdate;
 
+    /**
+     * @MongoDB\EmbedOne(targetDocument="Ville", strategy="set")
+     */
+    protected $ville;
+
     public function __construct()
     {
         $this->startingdate = new \Datetime();
@@ -189,5 +194,27 @@ class Dev
     public function getStartingdate()
     {
         return $this->startingdate;
+    }
+
+    /**
+     * Set city
+     *
+     * @param HDW\MongoDBBundle\Document\Ville $ville
+     * @return $this
+     */
+    public function setVille(\HDW\MongoDBBundle\Document\Ville $ville)
+    {
+        $this->ville = $ville;
+        return $this;
+    }
+
+    /**
+     * Get city
+     *
+     * @return HDW\MongoDBBundle\Document\Ville $ville
+     */
+    public function getVille()
+    {
+        return $this->ville;
     }
 }

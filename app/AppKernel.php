@@ -16,6 +16,7 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new Doctrine\Bundle\MongoDBBundle\DoctrineMongoDBBundle(),
+            new Ob\HighchartsBundle\ObHighchartsBundle(),
             new HDW\MainBundle\HDWMainBundle(),
             new HDW\MySQLBundle\HDWMySQLBundle(),
             new HDW\MongoDBBundle\HDWMongoDBBundle(),

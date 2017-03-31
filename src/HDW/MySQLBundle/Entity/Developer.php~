@@ -69,13 +69,6 @@ class Developer
      */
     private $startingdate;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="HDW\MySQLBundle\Entity\Projet", cascade={"persist"})
-     */
-    private $projet;
-
-    private $categories;
-
     public function __construct()
     {
         $this->startingdate = new \Datetime();
