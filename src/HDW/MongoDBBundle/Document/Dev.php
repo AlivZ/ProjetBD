@@ -49,9 +49,15 @@ class Dev
      */
     protected $ville;
 
+    /**
+     * @MongoDB\EmbedMany(targetDocument="Project")
+     */
+    protected $project;
+
     public function __construct()
     {
         $this->startingdate = new \Datetime();
+        $this->project = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -216,5 +222,35 @@ class Dev
     public function getVille()
     {
         return $this->ville;
+    }
+
+    /**
+     * Add project
+     *
+     * @param HDW\MongoDBBundle\Document\Project $project
+     */
+    public function addProject(\HDW\MongoDBBundle\Document\Project $project)
+    {
+        $this->project[] = $project;
+    }
+
+    /**
+     * Remove project
+     *
+     * @param HDW\MongoDBBundle\Document\Project $project
+     */
+    public function removeProject(\HDW\MongoDBBundle\Document\Project $project)
+    {
+        $this->project->removeElement($project);
+    }
+
+    /**
+     * Get project
+     *
+     * @return \Doctrine\Common\Collections\Collection $project
+     */
+    public function getProject()
+    {
+        return $this->project;
     }
 }

@@ -1,0 +1,36 @@
+<?php
+
+namespace HDW\MongoDBBundle\Document;
+
+use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+
+/**
+ * @MongoDB\Document(repositoryClass="HDW\MongoDBBundle\Repository\ProRepository")
+ */
+class Project
+{
+    /**
+     * @MongoDB\Id
+     */
+    protected $id;
+
+    /**
+     * @MongoDB\Field(type="string")
+     */
+    protected $name;
+
+    /**
+     * @MongoDB\Field(type="date")
+    */
+    protected $datestart;
+
+    /**
+     * @MongoDB\Field(type="date")
+     */
+    protected $dateend;
+
+    /**
+     * @MongoDB\EmbedMany(targetDocument="Dev", strategy="set")
+     */
+    protected $dev;
+}

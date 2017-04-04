@@ -21,3 +21,15 @@ hdw_main_selectjoin:
 hdw_main_add:
     path:     /add
     defaults: { _controller: HDWMainBundle:Main:add }
+
+hdw_main_adddevprojetmysql:
+    path:     /projetmysql
+    defaults: { _controller: HDWMainBundle:Main:projetmysql }
+
+hdw_main_adddevprojetmongo:
+    path:     /projetmongo
+    defaults: { _controller: HDWMainBundle:Main:projetmongo }
+
+hdw_main_selectmany:
+    path:     /selectmany
+    defaults: { _controller: HDWMainBundle:Main:selectmany }

@@ -4,13 +4,14 @@ namespace HDW\MainBundle\Controller;
 
 use HDW\MainBundle\Factory\DevFactory;
 use HDW\MongoDBBundle\Document\address;
+use HDW\MongoDBBundle\Document\Project;
 use HDW\MongoDBBundle\Document\Ville;
-use HDW\MongoDBBundle\Document\classe;
-use HDW\MongoDBBundle\Document\datenaissance;
 use HDW\MongoDBBundle\Document\Dev;
-use HDW\MongoDBBundle\Document\Etudiant;
-use HDW\MongoDBBundle\Document\results;
-use HDW\MongoDBBundle\Document\student;
+
+use HDW\MySQLBundle\Entity\Developer;
+use HDW\MySQLBundle\Entity\City;
+use HDW\MySQLBundle\Entity\DeveloperProjet;
+use HDW\MySQLBundle\Entity\Projet;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Ob\HighchartsBundle\Highcharts\Highchart;
 
@@ -225,7 +226,6 @@ class MainController extends Controller
     public function selectjoinAction()
     {
 
-        $em = $this->getDoctrine()->getManager();
         $repository = $this->getDoctrine()->getManager()->getRepository('HDWMySQLBundle:Developer');
 
         $timeselectjoinstartmysql = microtime(true);
@@ -236,7 +236,6 @@ class MainController extends Controller
         $timeselectjoinmysql = $timeselectjoinendmysql - $timeselectjoinstartmysql;
 
 
-        $dm = $this->get('doctrine_mongodb')->getManager();
         $repositoryy = $this->get('doctrine_mongodb')->getManager()->getRepository('HDWMongoDBBundle:Dev');
 
         $timeselectjoinstartmongo = microtime(true);
@@ -298,8 +297,8 @@ class MainController extends Controller
         $citydev->setName("Hurlevent");
         $citydev->setCountry("Azeroth");
 
-        $dev->setCity($citydev);
-        $devo->setCity($citydev);
+        $dev->setVille($citydev);
+        $devo->setVille($citydev);
 
         $dm = $this->get('doctrine_mongodb')->getManager();
         $dm->persist($dev);
@@ -308,5 +307,139 @@ class MainController extends Controller
         $dm->flush();
 
         return $this->render('HDWMainBundle:Main:index.html.twig');
+    }
+
+    public function projetmysqlAction()
+    {
+        $citydevmysql = new City();
+        $citydevmysql->setName("Chamonix")
+                     ->setCountry("FRANCE");
+
+        $devmysql = new Developer();
+        $devmysql->setName("Fourcade")
+                 ->setNickname("Martin")
+                 ->setCity($citydevmysql)
+                 ->setState("Skieur")
+                 ->setDbfav("LUL")
+                 ->setAge(36);
+
+        $projetmysql = new Projet();
+        $projetmysql->setName("Gagné les Championnats du Monde 2017");
+        $datedebut = new \Datetime();
+        $datedebut->setDate(2016,12,26);
+        $projetmysql->setDatestart($datedebut);
+        $datefin = new \Datetime();
+        $datefin->setDate(2017,11,23);
+        $projetmysql->setDateend($datefin);
+
+        $projetdev = new DeveloperProjet($projetmysql,$devmysql);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($citydevmysql);
+        $em->flush();
+        $em->persist($devmysql);
+        $em->flush();
+        $em->persist($projetmysql);
+        $em->flush();
+        $em->persist($projetdev);
+        $em->flush();
+
+        return $this->render('HDWMainBundle:Main:index.html.twig');
+    }
+
+    public function projetmongoAction() {
+
+        $citydevmongo = new Ville();
+        $citydevmongo->setName("Paris")
+                     ->setCountry("FRANCE");
+
+        $devmongo = new Dev();
+        $devmongo->setName("Poulet")
+            ->setNickname("Fou")
+            ->setVille($citydevmongo)
+            ->setState("Tueur")
+            ->setDbfav("Cassandra")
+            ->setAge("5");
+
+        $projetmongo = new Project();
+        $projetmongo->setName("Manger des Enfants");
+
+        $projetmongo1 = new Project();
+        $projetmongo1->setName("Creer une Base MongoDB");
+
+        $projetmongo2 = new Project();
+        $projetmongo2->setName("Danser toute la nuit !");
+
+        $devmongo->addProject($projetmongo);
+        $devmongo->addProject($projetmongo1);
+        $devmongo->addProject($projetmongo2);
+
+        $dm = $this->get('doctrine_mongodb')->getManager();
+        $dm->persist($citydevmongo);
+        $dm->flush();
+        $dm->persist($devmongo);
+        $dm->flush();
+        $dm->persist($projetmongo);
+        $dm->flush();
+        $dm->persist($projetmongo1);
+        $dm->flush();
+        $dm->persist($projetmongo2);
+        $dm->flush();
+
+        return $this->render('HDWMainBundle:Main:index.html.twig');
+    }
+
+    public function selectmanyAction()
+    {
+
+        $repository = $this->getDoctrine()->getManager()->getRepository('HDWMySQLBundle:Developer');
+
+        $timeselectjoinstartmysql = microtime(true);
+        for ($i = 0; $i < 500; $i++) {
+            $listDevelopers = $repository->findProjetsDev();
+        }
+        $timeselectjoinendmysql = microtime(true);
+        $timeselectjoinmysql = $timeselectjoinendmysql - $timeselectjoinstartmysql;
+
+        $repositoryy = $this->get('doctrine_mongodb')->getManager()->getRepository('HDWMongoDBBundle:Dev');
+
+        $timeselectjoinstartmongo = microtime(true);
+        for ($i = 0; $i < 500; $i++) {
+            $listmDevelopers = $repositoryy->findProjetsDev();
+        }
+        $timeselectjoinendmongo = microtime(true);
+        $timeselectjoinmongo = $timeselectjoinendmongo - $timeselectjoinstartmongo;
+
+        $series = array(
+            array("name" => "MySQL", "data" => array($timeselectjoinmysql)),
+            array("name" => "MongoDB", "data" => array($timeselectjoinmongo))
+        );
+
+        $ob = new Highchart();
+        $ob->chart->type('column');
+        $ob->chart->renderTo('linechart');  // The #id of the div where to render the chart
+        $ob->title->text('SELECT JOIN MANY');
+        $ob->subtitle->text('500 SELECT JOIN');
+
+        $ob->xAxis->categories(array("SELECT JOIN MANY"));
+        $ob->xAxis->crosshair(true);
+
+        $ob->yAxis->min(0);
+        $ob->yAxis->title(array('text' => "Secondes (s)"));
+
+        $ob->tooltip->headerFormat('<span style="font-size:10px">{point.key}</span><table>');
+        $ob->tooltip->pointFormat('<tr><td style="color:{series.color};padding:0">{series.name}: </td>
+            <td style="padding:0"><b>{point.y:.1f} s</b></td></tr>');
+        $ob->tooltip->footerFormat('</table>');
+        $ob->tooltip->shared(true);
+        $ob->tooltip->useHTML(true);
+
+        $ob->plotOptions->column(array("pointPadding" => 0.2, "borderWidth" => 0));
+
+        $ob->series($series);
+
+        return $this->render('HDWMainBundle:Main:selectmany.html.twig', array(
+            'chart' => $ob
+        ));
     }
 }

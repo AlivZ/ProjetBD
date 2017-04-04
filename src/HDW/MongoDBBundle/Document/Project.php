@@ -1,52 +1,43 @@
 <?php
 
-namespace HDW\MySQLBundle\Entity;
+namespace HDW\MongoDBBundle\Document;
 
-use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
 /**
- * Projet
- *
- * @ORM\Table(name="projet")
- * @ORM\Entity(repositoryClass="HDW\MySQLBundle\Repository\ProjetRepository")
+ * @MongoDB\Document(repositoryClass="HDW\MongoDBBundle\Repository\ProRepository")
  */
-class Projet
+class Project
 {
     /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @MongoDB\Id
      */
-    private $id;
+    protected $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=255)
+     * @MongoDB\Field(type="string")
      */
-    private $name;
+    protected $name;
 
     /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="datestart", type="date")
-     */
-    private $datestart;
+     * @MongoDB\Field(type="date")
+    */
+    protected $datestart;
 
     /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="dateend", type="date")
+     * @MongoDB\Field(type="date")
      */
-    private $dateend;
+    protected $dateend;
 
+    public function __construct()
+    {
 
+    }
+    
     /**
      * Get id
      *
-     * @return int
+     * @return id $id
      */
     public function getId()
     {
@@ -57,20 +48,18 @@ class Projet
      * Set name
      *
      * @param string $name
-     *
-     * @return Projet
+     * @return $this
      */
     public function setName($name)
     {
         $this->name = $name;
-
         return $this;
     }
 
     /**
      * Get name
      *
-     * @return string
+     * @return string $name
      */
     public function getName()
     {
@@ -80,21 +69,19 @@ class Projet
     /**
      * Set datestart
      *
-     * @param \DateTime $datestart
-     *
-     * @return Projet
+     * @param date $datestart
+     * @return $this
      */
     public function setDatestart($datestart)
     {
         $this->datestart = $datestart;
-
         return $this;
     }
 
     /**
      * Get datestart
      *
-     * @return \DateTime
+     * @return date $datestart
      */
     public function getDatestart()
     {
@@ -104,21 +91,19 @@ class Projet
     /**
      * Set dateend
      *
-     * @param \DateTime $dateend
-     *
-     * @return Projet
+     * @param date $dateend
+     * @return $this
      */
     public function setDateend($dateend)
     {
         $this->dateend = $dateend;
-
         return $this;
     }
 
     /**
      * Get dateend
      *
-     * @return \DateTime
+     * @return date $dateend
      */
     public function getDateend()
     {

@@ -12,4 +12,5 @@ interface I_DeveloperRepository
     public function findIn2017();
     public function findStagiaire();
     public function findDevMontpellier();
+    public function findProjetsDev();
 }

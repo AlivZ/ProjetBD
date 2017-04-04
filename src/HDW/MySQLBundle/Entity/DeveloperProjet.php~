@@ -1,0 +1,32 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: hugod
+ * Date: 03/04/2017
+ * Time: 09:58
+ */
+
+namespace HDW\MySQLBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="developerprojet")
+ */
+class DeveloperProjet
+{
+    /**
+     * @ORM\ManyToOne(targetEntity="HDW\MySQLBundle\Entity\Developer")
+     * @ORM\Id
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $developer;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="HDW\MySQLBundle\Entity\Projet")
+     * @ORM\Id
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $projet;
+}

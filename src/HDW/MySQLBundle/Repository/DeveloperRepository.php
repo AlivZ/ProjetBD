@@ -12,6 +12,7 @@ namespace HDW\MySQLBundle\Repository;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use HDW\MainBundle\Repository\I_DeveloperRepository;
+use HDW\MySQLBundle\Entity\Developer;
 
 class DeveloperRepository extends EntityRepository implements I_DeveloperRepository
 {
@@ -45,5 +46,19 @@ class DeveloperRepository extends EntityRepository implements I_DeveloperReposit
         $qb = $this->createQueryBuilder('a')->leftJoin('a.city','city')->addSelect('city');
         $qb->where('city.name = :nom')->setParameter('nom','Montpellier');
         return $qb->getQuery()->getResult();
+    }
+
+    public function findProjetsDev()
+    {
+        $query = $this->_em->createQuery('SELECT a FROM HDW\MySQLBundle\Entity\Developer a
+                                                        JOIN HDW\MySQLBundle\Entity\DeveloperProjet b 
+                                                        WHERE a.id = b.developer
+                                                        JOIN HDW\MySQLBundle\Entity\Projet c 
+                                                        WHERE b.projet = c.id
+                                                        AND c.name = :name');
+        $query->setParameter('name','Gagné les Championnats du Monde 2017');
+        $results = $query->getResult();
+
+        return $results;
     }
 }

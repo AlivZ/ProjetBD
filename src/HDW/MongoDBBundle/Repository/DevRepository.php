@@ -36,4 +36,9 @@ class DevRepository extends DocumentRepository implements I_DeveloperRepository
     {
         return $this->createQueryBuilder('Dev')->field('city.name')->equals('Montpellier')->getQuery()->execute();
     }
+
+    public function findProjetsDev()
+    {
+        return $this->createQueryBuilder('Dev')->field('project.name')->equals('Creer une Base MongoDB')->getQuery()->execute();
+    }
 }
